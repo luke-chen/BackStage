@@ -1,0 +1,6 @@
+Create a eclipse project
+
+1. comfirm you had cloned the repository
+2. new a web app project from eclipse
+3. transfor it to maven project
+4. copy the code of reposiory to the project
