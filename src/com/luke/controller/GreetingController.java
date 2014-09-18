@@ -1,20 +1,46 @@
 package com.luke.controller;
 
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.luke.model.Greeting;
+import com.luke.model.fruit.Apple;
+import com.luke.model.fruit.Fruit;
 
-@RestController
+@Controller
+@RequestMapping("/spring/*")
 public class GreetingController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
+    
+    @Autowired
+    @Qualifier("orange") // inject instance named "orange" for fruit implement
+    private Fruit fruit;
+    
+    @Autowired
+    private Apple apple;
+    
+    @PostConstruct
+    public void init() {
+    	System.out.println("@PostContrust run once when this Bean's lifecycle start in spring container");
+    }
+    
+    @PreDestroy
+    public void destory() {
+    	System.out.println("@PreDestroy run once when this Bean's lifecycle will destory in spring container");
+    }
     
     @ResponseBody
     @RequestMapping(value = "/greeting", method = RequestMethod.GET)
@@ -24,5 +50,22 @@ public class GreetingController {
                 String.format(template, name));
     	System.out.println("id: "+greet.getId()+" data:"+greet.getContent());
         return greet;
+    }
+    
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/fruit", method = RequestMethod.GET)
+    public String showJSP(Map<String, Object> model) {
+    	System.out.println("fruit-1 name: "+fruit.getName());
+    	System.out.println("apple-2 name: "+apple.getName());
+    	
+//    	model will be used in JSP View
+    	model.put("fruit", fruit);
+    	return "/sale/sale-fruit";
+    }
+    
+    @RequestMapping("/exit")
+    public void exit() {
+    	// 调用@destory
+    	System.exit(1);
     }
 }
