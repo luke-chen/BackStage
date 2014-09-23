@@ -9,7 +9,8 @@
         http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
-
+	
+	<!-- MVC -->
     <mvc:annotation-driven />
     <context:component-scan base-package="com.luke.*" />
     
@@ -19,4 +20,19 @@
         <property name="prefix" value="/WEB-INF/views/"/> <!--最好以"/"结尾，针对返回值为void类型有用 -->
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    
+    <!-- Read Properties -->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <!--value>classpath*:demo.properties</value-->
+                <!--value>file:/opt/demo/config/demo.properties</value-->
+                <value>/WEB-INF/demo.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    
+    <!--  -->
 </beans>
