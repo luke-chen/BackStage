@@ -8,6 +8,7 @@
 </head>
 <body>
 	Welcome to my home! <br>
-	Today, The fruit is <b> ${fruit.getName()} </b>
+	Today, The fruit is <b>${fruit.getName()}</b> <br>
+	My Favorite fruit is <b>${favourite}</b>
 </body>
 </html>
