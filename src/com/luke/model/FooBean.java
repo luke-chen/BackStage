@@ -1,11 +1,11 @@
 package com.luke.model;
 
-public class Greeting {
+public class FooBean {
 
     private final long id;
     private String content;
 
-    public Greeting(long id, String content) {
+    public FooBean(long id, String content) {
         this.id = id;
         this.content = content;
     }

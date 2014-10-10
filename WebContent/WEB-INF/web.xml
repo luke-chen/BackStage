@@ -6,11 +6,7 @@
 	<display-name>SI_Basic</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
 	<!-- 使用Spring定义的Servlet来 初始化spring容器，以及处理后面的所有的请求 -->
@@ -26,6 +22,10 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
