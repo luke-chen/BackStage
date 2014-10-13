@@ -9,25 +9,44 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
-	<!-- 使用Spring定义的Servlet来 初始化spring容器，以及处理后面的所有的请求 -->
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- Filter:安全过滤 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Servlet:使用Spring定义的Servlet来 初始化spring容器，以及处理后面的所有的请求 -->
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>
-                /WEB-INF/applicationContext.xml
-            </param-value>
-		</init-param>
+        	<param-name>contextConfigLocation</param-name>
+        	<param-value>/WEB-INF/applicationContext.xml</param-value>
+    	</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.html</url-pattern>
-	</servlet-mapping>
+	<!-- 由spring mvc处理的url -->
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- 由servlet处理的url -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 </web-app>

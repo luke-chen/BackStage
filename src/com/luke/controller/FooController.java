@@ -1,5 +1,6 @@
 package com.luke.controller;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -9,6 +10,9 @@ import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -107,6 +111,21 @@ public class FooController {
         user.setId(0);
         user.setUsername(username);
         fooService.addUser(user);
+    }
+    
+    @RequestMapping(value = "/whoami")
+    @ResponseBody
+    public Collection<GrantedAuthority> whoAmI() {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+//              CustomUser custom = (CustomUser) authentication == null ? null : authentication.getPrincipal();
+        String str = authentication.getName();
+        System.out.print("current user is "+str+" ROLE:");
+        Collection<GrantedAuthority> authority = (Collection<GrantedAuthority>)authentication.getAuthorities();
+        for(GrantedAuthority g : authority)
+            System.out.print(" "+g.getAuthority());
+        System.out.println();
+        return authority;
     }
 
     @RequestMapping("/exit")

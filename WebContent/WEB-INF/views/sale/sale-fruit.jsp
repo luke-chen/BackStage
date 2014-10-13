@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,5 +11,8 @@
 	Welcome to my home! <br>
 	Today, The fruit is <b>${fruit.getName()}</b> <br>
 	My Favorite fruit is <b>${favourite}</b>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+	  	<b>You are administrator</b>
+	</sec:authorize>
 </body>
 </html>

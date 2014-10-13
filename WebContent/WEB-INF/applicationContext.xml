@@ -40,4 +40,5 @@
     
     <!-- Persistence -->
     <import resource="persistenceContext.xml"/>
+    <import resource="securityContext.xml"/>
 </beans>
