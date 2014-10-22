@@ -1,11 +1,16 @@
 package com.luke.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -87,11 +92,29 @@ public class FooController {
 		return "/sale/sale-fruit";
 	}
     
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
+	/* 302 Download */
+    @RequestMapping(value = "/download302", method = RequestMethod.GET)
     public String downloadBy302() {
     	return "redirect:/test/fruit";
     }
     
+    /* Download CSV */
+    @RequestMapping(value = "/downloadCSV", method = RequestMethod.GET)
+    public void downloadCSV(HttpServletRequest request, HttpServletResponse response) {
+        ArrayList<FooBean> list = new ArrayList<FooBean>();
+        list.add(new FooBean(20, "测试1"));
+        list.add(new FooBean(30, "测试,\"2"));
+        response.setHeader("Content-Disposition", "attachment;filename=wo.csv");
+        response.setHeader("Content-Type", "application/csv");
+        try {
+            response.getOutputStream().write(
+                fooService.toCSV(list).getBytes("utf-8"));
+        } catch(Exception ex) {
+            ex.printStackTrace();  
+        }
+    }
+    
+    /* MySQL*/
     @RequestMapping(value = "/user/query")
     @ResponseBody
     public User queryUser() {
@@ -113,6 +136,7 @@ public class FooController {
         fooService.addUser(user);
     }
     
+    /*Spring Security*/
     @RequestMapping(value = "/whoami")
     @ResponseBody
     public Collection<GrantedAuthority> whoAmI() {
