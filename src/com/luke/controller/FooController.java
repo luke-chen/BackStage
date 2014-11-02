@@ -1,7 +1,5 @@
 package com.luke.controller;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,10 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.luke.model.FooBean;
-import com.luke.model.User;
 import com.luke.model.fruit.Apple;
 import com.luke.model.fruit.Fruit;
+import com.luke.model.user.User;
 import com.luke.service.FooServiceImpl;
+import com.luke.service.UserService;
 
 @Controller
 @RequestMapping("/test/*")
@@ -112,44 +111,6 @@ public class FooController {
         } catch(Exception ex) {
             ex.printStackTrace();  
         }
-    }
-    
-    /* MySQL*/
-    @RequestMapping(value = "/user/query")
-    @ResponseBody
-    public User queryUser() {
-        return fooService.doSomeBusinessStuff("luke");
-    }
-    
-    @RequestMapping(value = "/user/all")
-    @ResponseBody
-    public List<User> allUsers() {
-        return fooService.getAll();
-    }
-    
-    @RequestMapping(value = "/user/add")
-    @ResponseBody
-    public void addUser(@RequestParam(value="username", required=true) String username) throws Exception {
-        User user = new User();
-        user.setId(0);
-        user.setUsername(username);
-        fooService.addUser(user);
-    }
-    
-    /*Spring Security*/
-    @RequestMapping(value = "/whoami")
-    @ResponseBody
-    public Collection<GrantedAuthority> whoAmI() {
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-//              CustomUser custom = (CustomUser) authentication == null ? null : authentication.getPrincipal();
-        String str = authentication.getName();
-        System.out.print("current user is "+str+" ROLE:");
-        Collection<GrantedAuthority> authority = (Collection<GrantedAuthority>)authentication.getAuthorities();
-        for(GrantedAuthority g : authority)
-            System.out.print(" "+g.getAuthority());
-        System.out.println();
-        return authority;
     }
 
     @RequestMapping("/exit")

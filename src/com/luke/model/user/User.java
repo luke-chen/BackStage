@@ -1,16 +1,8 @@
-package com.luke.model;
+package com.luke.model.user;
 
 public class User {
-    private int id;
     private String username;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private String password;
 
     public String getUsername() {
         return username;
@@ -19,4 +11,12 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
