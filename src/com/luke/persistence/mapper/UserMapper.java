@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 
 
 
+
 import com.luke.model.user.Authority;
 import com.luke.model.user.User;
 
@@ -20,6 +21,9 @@ public interface UserMapper {
     
     @Select("SELECT * FROM users")
     List<User> getAll();
+    
+    @Select("SELECT * FROM users WHERE username in (SELECT username FROM xingke.authorities WHERE authority = 'ROLE_USER')")
+    List<User> getUsersByRoleUser();
     
     @Insert("INSERT INTO users (username, password, enabled) VALUES (#{username}, #{password}, 1)")
     //@SelectKey(statement="call next value for TestSequence", keyProperty="nameId", before=true, resultType=int.class)

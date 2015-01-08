@@ -57,12 +57,12 @@ public class FooController {
     
     @PostConstruct
     public void init() {
-    	System.out.println("@PostContrust run once when this Bean's lifecycle start in spring container");
+    	System.out.println("'@PostContrust' run once when this Bean's lifecycle start in spring container");
     }
     
     @PreDestroy
     public void destory() {
-    	System.out.println("@PreDestroy run once when this Bean's lifecycle will destory in spring container");
+    	System.out.println("'@PreDestroy' run once when this Bean's lifecycle will destory in spring container");
     }
     
     /* A JSON API */
@@ -96,7 +96,7 @@ public class FooController {
     public String downloadBy302() {
     	return "redirect:/test/fruit";
     }
-    
+
     /* Download CSV */
     @RequestMapping(value = "/downloadCSV", method = RequestMethod.GET)
     public void downloadCSV(HttpServletRequest request, HttpServletResponse response) {
