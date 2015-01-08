@@ -9,24 +9,25 @@
 	<!-- 注意security 依靠JSESSION来维持会话合法性，其会话超时session-timout配置在web.xml里面(timeout全局生效) -->
 	<!-- http pattern="/css/**" security="none"/ -->
 	<http use-expressions="true">
+		<intercept-url pattern="/user" access="isAuthenticated()" />
 		<intercept-url pattern="/user/all" access="isAuthenticated()" />
 		<intercept-url pattern="/user/query" access="hasRole('ROLE_ADMIN')" />
 		<http-basic />
 		<form-login login-page="/login.html"
-			authentication-failure-url="/login.html?error=1" />
-		<logout logout-success-url="/" />
+			authentication-failure-url="/login.html?error=1" default-target-url="/index"/>
+		<logout logout-success-url="/login.html" />
 	</http>
-	
-	 <!-- 对密码进行MD5编码 -->  
+
+	 <!-- 对密码进行MD5编码 -->
     <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" /> 
 
 	<!-- JDBC -->
 	<beans:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
-	<authentication-manager>  
+	<authentication-manager>
         <authentication-provider user-service-ref="userDetailsService">  
-            <!-- password-encoder ref="passwordEncoder" / -->  
+            <password-encoder ref="passwordEncoder"/>  
         </authentication-provider>  
     </authentication-manager>
 
