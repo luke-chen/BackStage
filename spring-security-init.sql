@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `SI_Basic` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `SI_Basic`;
+CREATE DATABASE  IF NOT EXISTS `backstage` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `backstage`;
 
 --
 -- Table structure for table `users`
@@ -11,13 +11,6 @@ CREATE TABLE `users` (
   `enabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
-LOCK TABLES `users` WRITE;
-INSERT INTO `users` VALUES ('admin','111111',1),('user1','222222',1);
-UNLOCK TABLES;
 
 --
 -- Table structure for table `authorities`
@@ -33,8 +26,15 @@ CREATE TABLE `authorities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `users`
+--
+LOCK TABLES `users` WRITE;
+INSERT INTO `users` VALUES ('admin','96e79218965eb72c92a549dd5a330112',1),('user1','96e79218965eb72c92a549dd5a330112',1);
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `authorities`
 --
 LOCK TABLES `authorities` WRITE;
-INSERT INTO `authorities` VALUES ('admin','ROLE_ADMIN'),('admin','ROLE_USER'),('user1','ROLE_USER');
+INSERT INTO `authorities` VALUES ('admin','ROLE_ADMIN'),('user1','ROLE_USER');
 UNLOCK TABLES;

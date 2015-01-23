@@ -1,8 +1,6 @@
 package com.luke.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
@@ -13,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.luke.model.FooBean;
 import com.luke.model.fruit.Apple;
 import com.luke.model.fruit.Fruit;
-import com.luke.model.user.User;
 import com.luke.service.FooServiceImpl;
-import com.luke.service.UserService;
 
 @Controller
 @RequestMapping("/test/*")
@@ -100,14 +93,15 @@ public class FooController {
     /* Download CSV */
     @RequestMapping(value = "/downloadCSV", method = RequestMethod.GET)
     public void downloadCSV(HttpServletRequest request, HttpServletResponse response) {
-        ArrayList<FooBean> list = new ArrayList<FooBean>();
-        list.add(new FooBean(20, "测试1"));
-        list.add(new FooBean(30, "测试,\"2"));
+    	String titles = "\"编号\", \"内容\"\n";
+        ArrayList<FooBean> contentList = new ArrayList<FooBean>();
+        contentList.add(new FooBean(20, "测试内容1"));
+        contentList.add(new FooBean(30, "测试内容,\"2"));
         response.setHeader("Content-Disposition", "attachment;filename=wo.csv");
         response.setHeader("Content-Type", "application/csv");
         try {
             response.getOutputStream().write(
-                fooService.toCSV(list).getBytes("utf-8"));
+                fooService.toCSV(titles, contentList).getBytes("utf-8"));
         } catch(Exception ex) {
             ex.printStackTrace();  
         }

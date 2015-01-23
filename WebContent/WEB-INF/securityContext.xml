@@ -13,9 +13,11 @@
 		<intercept-url pattern="/user/all" access="isAuthenticated()" />
 		<intercept-url pattern="/user/query" access="hasRole('ROLE_ADMIN')" />
 		<http-basic />
-		<form-login login-page="/login.html"
-			authentication-failure-url="/login.html?error=1" default-target-url="/index"/>
-		<logout logout-success-url="/login.html" />
+		<!-- 根路径默认欢迎页面为 "/login.jsp" -->
+		<form-login login-page="/"
+			authentication-failure-url="/?error=1" default-target-url="/index" />
+		<logout logout-success-url="/" delete-cookies="JSESSIONID" />
+		<!-- session-management invalid-session-url="/invalidSession.htm" /-->
 	</http>
 
 	 <!-- 对密码进行MD5编码 -->
@@ -32,7 +34,7 @@
     </authentication-manager>
 
 	<!-- In-Memory Auth -->
-	<!-- 
+	<!--
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>

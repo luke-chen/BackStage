@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -68,17 +71,18 @@
             <div class="alert alert-info">
                 Please login with your Username and Password.
             </div>
-            <form class="form-horizontal" action="/BackStage/j_spring_security_check" method="post">
+            <c:url value="/login" var="loginUrl"/>
+            <form class="form-horizontal" action="${loginUrl}" method="post">
                 <fieldset>
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
-                        <input name="j_username" type="text" class="form-control" placeholder="Username">
+                        <input name="username" type="text" class="form-control" placeholder="Username">
                     </div>
                     <div class="clearfix"></div><br>
 
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
-                        <input name="j_password" type="password" class="form-control" placeholder="Password">
+                        <input name="password" type="password" class="form-control" placeholder="Password">
                     </div>
                     <div class="clearfix"></div>
 
@@ -91,10 +95,16 @@
                         <button name="submit" type="submit" class="btn btn-primary" value="Login">Login</button>
                     </p>
                 </fieldset>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
         </div>
         <!--/span-->
     </div><!--/row-->
+    <div class="row">
+    	<div align="center">
+    		<a href="plain-login.jsp">简单登陆页面</a>
+    	</div>
+    </div>
 </div><!--/fluid-row-->
 
 </div><!--/.fluid-container-->

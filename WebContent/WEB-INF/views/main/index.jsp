@@ -104,6 +104,19 @@
                     <h1>Charisma <br>
                         <small>free, premium quality, responsive, multiple skin admin template.</small>
                     </h1>
+                    <p>
+                    用户状态:
+					<sec:authorize access="isAuthenticated()">
+						<b>已登陆</b>
+						<form action="logout" method="POST">
+							<input type="submit" value="logout"/>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						</form>
+					</sec:authorize>
+					<sec:authorize access="!isAuthenticated()">
+						<b>未登陆</b>
+					</sec:authorize>
+					<p>
                    	This webapp is an sample about spring web, spring transaction, mybatis.<br>
 					Test URL:<br>
 					http://localhost:8080/BackStage/test/json?name=kiki<br>
@@ -114,6 +127,9 @@
 					http://localhost:8080/BackStage/user/update?username=user2&password=222222&authority=ROLE_USER<br>
 					http://localhost:8080/BackStage/user/delete?username=user2<br>
 					http://localhost:8080/BackStage/user/whoami<br>
+					<br>
+					http://localhost:8080/BackStage/test/downloadCSV<br>
+					http://localhost:8080/BackStage/test/download302
                 </div>
             </div>
         </div>
