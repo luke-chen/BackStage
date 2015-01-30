@@ -129,7 +129,8 @@
 					http://localhost:8080/BackStage/user/whoami<br>
 					<br>
 					http://localhost:8080/BackStage/test/downloadCSV<br>
-					http://localhost:8080/BackStage/test/download302
+					http://localhost:8080/BackStage/test/download302<br>
+					http://localhost:8080/BackStage/test/exit
                 </div>
             </div>
         </div>

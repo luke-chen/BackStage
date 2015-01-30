@@ -3,6 +3,8 @@ package com.luke.controller;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
@@ -23,6 +25,8 @@ import com.luke.service.UserService;
 
 @Controller
 public class UserController {
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
     @Autowired
     private UserService userService;
     
@@ -136,11 +140,10 @@ public class UserController {
     public Collection<GrantedAuthority> whoAmI() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String str = authentication.getName();
-        System.out.print("current user is "+str+" ROLE:");
+        logger.info("current user is "+str+" ROLE:");
         Collection<GrantedAuthority> authority = (Collection<GrantedAuthority>)authentication.getAuthorities();
         for(GrantedAuthority g : authority)
-            System.out.print(" "+g.getAuthority());
-        System.out.println();
+        	logger.info(" "+g.getAuthority());
         return authority;
     }
 }

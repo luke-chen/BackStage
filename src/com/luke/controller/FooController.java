@@ -24,9 +24,14 @@ import com.luke.model.fruit.Apple;
 import com.luke.model.fruit.Fruit;
 import com.luke.service.FooServiceImpl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Controller
 @RequestMapping("/test/*")
 public class FooController {
+	// LogBack 打印对象
+	private static final Logger logger = LoggerFactory.getLogger(FooController.class);
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -50,12 +55,12 @@ public class FooController {
     
     @PostConstruct
     public void init() {
-    	System.out.println("'@PostContrust' run once when this Bean's lifecycle start in spring container");
+    	logger.info("'@PostContrust' run once when this Bean's lifecycle start in spring container");
     }
     
     @PreDestroy
     public void destory() {
-    	System.out.println("'@PreDestroy' run once when this Bean's lifecycle will destory in spring container");
+    	logger.info("'@PreDestroy' run once when this Bean's lifecycle will destory in spring container");
     }
     
     /* A JSON API */
@@ -64,7 +69,7 @@ public class FooController {
     public FooBean json(@RequestParam(value="name", required=false, defaultValue="World") String content) {
     	FooBean foo = new FooBean(counter.incrementAndGet(),
                 String.format(template, content));
-    	System.out.println("foo id: "+foo.getId()+" content:"+foo.getContent());
+    	logger.info("foo id: "+foo.getId()+" content:"+foo.getContent());
         return foo;
     }
 
@@ -72,12 +77,11 @@ public class FooController {
 //    @RequestMapping(value = "/", method = RequestMethod.GET)
 	@RequestMapping(value = "/jsp/{favourite}", method = RequestMethod.GET)
 	public String jsp(@PathVariable String favourite, ModelMap model) {
-		System.out.println("fruit-1 name: " + fruit.getName());
-		System.out.println("apple-2 name: " + apple.getName());
-		System.out.println("favourite: " + favourite);
-		System.out.println(String.format("remote IP: %s, port: %s", remoteIP,
-				remotePort));
-		
+		logger.info("fruit-1 name: " + fruit.getName());
+		logger.info("apple-2 name: " + apple.getName());
+		logger.info("favourite: " + favourite);
+		logger.info(String.format("remote IP: %s, port: %s", remoteIP, remotePort));
+
 		// model will be used in JSP View
 		model.addAttribute("fruit", fruit);
 		model.addAttribute("favourite", favourite);
@@ -110,6 +114,16 @@ public class FooController {
     @RequestMapping("/exit")
     public void exit() {
     	// @destory注解将被调用
+    	logger.warn("exit now...");
     	System.exit(1);
+    }
+    
+    @RequestMapping("/log")
+    public void log() {
+    	logger.trace("======trace");
+    	logger.debug("======debug");
+    	logger.info("======info");
+    	logger.warn("======warn");
+    	logger.error("======error");
     }
 }
