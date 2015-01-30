@@ -1,7 +1,7 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 	<!-- 给控制台输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<!-- encoder 默认配置为PatternLayoutEncoder -->
+		<!-- encoder 默认配置为PatternLayoutEncoder --> 
 		<encoder>
 			<pattern>[%d{HH:mm:ss.SSS}]-[%level]-[%thread]-[%logger{36}]-[%file:%line]-[%msg]%n</pattern>
 		</encoder>
@@ -19,19 +19,20 @@
 			<pattern>[%date]-[%level]-[%logger{35}]-[%msg]%n</pattern>
 		</encoder>
     </appender>
-    
-    <!-- 为package指定日志级别 -->
+
+    <!-- 为package指定日志级别 
 	<logger name="com.luke.controller" level="INFO" />
-	
-	<!-- 全局日志级别 -->
+	-->
+
+	<!-- 全局日志级别 
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</root>
-	
-	<!-- 测试的时候可以打印全部级别信息
-	<root level="TRACE">
+	-->
+
+	<!-- 测试的时候可以打印全部级别信息 -->
+	<root level="TRACE" >
 		<appender-ref ref="STDOUT" />
 	</root>
-	-->
 </configuration>
