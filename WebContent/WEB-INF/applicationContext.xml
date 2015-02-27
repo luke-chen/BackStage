@@ -25,4 +25,13 @@
     <!-- Persistence -->
     <import resource="persistenceContext.xml"/>
     <import resource="securityContext.xml"/>
+    
+    <!-- Jedis -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+    </bean>
+    <bean id="myJedisPool" class="redis.clients.jedis.JedisPool">
+    	<constructor-arg index="0" ref="jedisPoolConfig"></constructor-arg>
+    	<constructor-arg index="1" type="String"><value>${redis.host.front}</value></constructor-arg>
+    	<constructor-arg index="2" type="int"><value>${redis.port.front}</value></constructor-arg>
+    </bean>
 </beans>
