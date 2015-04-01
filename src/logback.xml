@@ -21,6 +21,7 @@
     </appender>
     
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    	<queueSize>256</queueSize>
     	<appender-ref ref="FILE" />
   	</appender>
 
@@ -28,15 +29,16 @@
 	<logger name="com.luke.controller" level="INFO" />
 	-->
   	
-  	<!-- 全局日志级别 
+  	<!-- 全局日志级别 --> 
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="ASYNC" />
 	</root>
-	-->
+	
 
-	<!-- 测试的时候可以打印全部级别信息 -->
+	<!-- 测试的时候可以打印全部级别信息 
 	<root level="TRACE" >
 		<appender-ref ref="STDOUT" />
 	</root>
+	-->
 </configuration>
