@@ -19,15 +19,19 @@
 			<pattern>[%date]-[%level]-[%logger{35}]-[%msg]%n</pattern>
 		</encoder>
     </appender>
+    
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    	<appender-ref ref="FILE" />
+  	</appender>
 
     <!-- 为package指定日志级别 
 	<logger name="com.luke.controller" level="INFO" />
 	-->
-
-	<!-- 全局日志级别 
+  	
+  	<!-- 全局日志级别 
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
-		<appender-ref ref="FILE" />
+		<appender-ref ref="ASYNC" />
 	</root>
 	-->
 
