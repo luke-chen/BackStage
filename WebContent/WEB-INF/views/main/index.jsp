@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%
+// 获得项目完全路径(假设你的项目叫MyApp，那么获得到的地址就是 http://localhost:8080/MyApp/)
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -23,6 +27,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
     <meta name="author" content="Muhammad Usman">
+
+	<!-- base需要放到head中 -->
+	<base href="<%=basePath%>">
 
     <!-- The styles -->
     <link id="bs-css" href="css/bootstrap-cerulean.min.css" rel="stylesheet">
@@ -119,18 +126,28 @@
 					<p>
                    	This webapp is an sample about spring web, spring transaction, mybatis.<br>
 					Test URL:<br>
-					http://localhost:8080/Backstage/test/json?name=kiki<br>
-					http://localhost:8080/Backstage/test/jsp/grape<br>
-					http://localhost:8080/Backstage/user/all<br>
-					http://localhost:8080/Backstage/user/query<br>
-					http://localhost:8080/Backstage/user/add?username=user2&password=111111&authority=ROLE_USER<br>
-					http://localhost:8080/Backstage/user/update?username=user2&password=222222&authority=ROLE_USER<br>
-					http://localhost:8080/Backstage/user/delete?username=user2<br>
-					http://localhost:8080/Backstage/user/whoami<br>
-					<br>
-					http://localhost:8080/Backstage/test/downloadCSV<br>
-					http://localhost:8080/Backstage/test/download302<br>
-					http://localhost:8080/Backstage/test/exit
+					<h4>Data Formatter</h4>
+					<ul>
+						<li>test/json?name=kiki <a href="test/json?name=kiki">click</a></li>
+						<li>test/jsp/grape <a href="test/jsp/grape">click</a></<li>
+					</ul>
+					<h4>User authority</h4>
+					<ul>
+						<li>/user/all</li>
+						<li>/user/query</li>
+						<li>/user/add?username=user2&password=111111&authority=ROLE_USER</li>
+						<li>/user/update?username=user2&password=222222&authority=ROLE_USER</li>
+						<li>/user/delete?username=user2</li>
+						<li>/user/whoami</li>>
+					</ul>
+					<h4>CSV</h4>
+					test/downloadCSV <a href="test/downloadCSV">click</a><br>
+					<h4>302 Redirect</h4>
+					test/download302 <a href="test/download302">click</a><br>
+					<h4>An tiny image which read from buffer</h4>
+					test/image/tiny <a href="test/image/tiny">click</a>
+					<h4>Exit Application</h4>
+					test/exit <a href="test/exit">click</a>
                 </div>
             </div>
         </div>

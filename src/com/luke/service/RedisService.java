@@ -1,4 +1,4 @@
-package com.luke.persistence.cache;
+package com.luke.service;
 
 
 import javax.annotation.PostConstruct;
@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import com.luke.controller.FooController;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

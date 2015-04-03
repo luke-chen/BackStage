@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -24,7 +27,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
     <meta name="author" content="Muhammad Usman">
-
+    
+    <!-- The base path of href -->
+	<base href="<%=basePath%>">
+	
     <!-- The styles -->
     <link id="bs-css" href="css/bootstrap-cerulean.min.css" rel="stylesheet">
 
@@ -53,7 +59,6 @@
 
     <!-- The fav icon -->
     <link rel="shortcut icon" href="img/favicon.ico">
-
 </head>
 
 <body>
