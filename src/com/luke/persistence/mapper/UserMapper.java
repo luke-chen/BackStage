@@ -35,5 +35,5 @@ public interface UserMapper {
     int removeAuthority(@Param("username") String username);
     
     @Update("UPDATE users SET password = #{password} WHERE username = #{username}")
-    int updateUserByName(User user);
+    int updatePasswordByName(User user);
 }

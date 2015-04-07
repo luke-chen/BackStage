@@ -109,8 +109,9 @@ public class UserController {
 		}
     }
 
-    @RequestMapping(value = "/user/changePassword")
-    public void addUser(
+    @RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
+    @ResponseBody
+    public ActionStatus changePassword(
             @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "password", required = true) String password) {
         username = username.trim();
@@ -118,7 +119,13 @@ public class UserController {
         User user = new User();
         user.setUsername(username);
         user.setPassword(md5Encoder.encodePassword(password, null));
-        userService.updateUserByName(user);
+        int n = userService.updatePasswordByName(user);
+        if(n == 0)
+        	return new FailedActionStatus("non user been changed password");
+        else if (n == 1)
+        	return new SuccessfulActionStatus();
+        else
+        	return new FailedActionStatus("mutipult users been changed password , num:"+n);
     }
     
     @RequestMapping(value = "/user/get")

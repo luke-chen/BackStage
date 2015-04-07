@@ -146,6 +146,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					test/download302 <a href="test/download302">click</a><br>
 					<h4>An tiny image which read from buffer</h4>
 					test/image/tiny <a href="test/image/tiny">click</a>
+					<h4>Transcation</h4>
+					test/transaction <a href="test/transaction">click</a>
 					<h4>Exit Application</h4>
 					test/exit <a href="test/exit">click</a>
                 </div>

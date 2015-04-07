@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.luke.model.status.ActionStatus;
 import com.luke.model.status.FailedActionStatus;
@@ -41,9 +44,9 @@ public class UserService {
     public void addUser(User user) {
         userMapper.addUser(user);
     }
-
-    public int updateUserByName(User user) {
-        return userMapper.updateUserByName(user);
+    
+    public int updatePasswordByName(User user) {
+        return userMapper.updatePasswordByName(user);
     }
 
     public int removeUser(String username) {
@@ -77,7 +80,7 @@ public class UserService {
     public ActionStatus updateUserAndAuthorityByName(User user, String authority) {
         if(!ROLE_AUTH.containsKey(authority))
             return new FailedActionStatus("该权限不存在");
-        if(updateUserByName(user) <= 0)
+        if(updatePasswordByName(user) <= 0)
             return new FailedActionStatus("该用户不存在");
         removeAuthority(user.getUsername());
         Authority auth = new Authority();

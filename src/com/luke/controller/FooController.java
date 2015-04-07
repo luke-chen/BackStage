@@ -163,4 +163,9 @@ public class FooController {
 		response.setStatus(200);
 		response.flushBuffer();
 	}
+	
+	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
+	public void testTransaction() {
+		fooService.getTranscation();
+	}
 }
