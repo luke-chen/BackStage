@@ -5,7 +5,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
     <!-- Properties -->
     <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
@@ -22,7 +22,8 @@
         <property name="properties" ref="configProperties" />
     </bean>
     
-    <!-- Persistence -->
+    <!-- include others -->
+    <import resource="mvcContext.xml"/>
     <import resource="persistenceContext.xml"/>
     <import resource="securityContext.xml"/>
     
