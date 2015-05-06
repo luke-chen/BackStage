@@ -147,6 +147,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					test/image/tiny <a href="test/image/tiny">click</a>
 					<h4>Transcation</h4>
 					test/transaction <a href="test/transaction">click</a>
+					<h4>Redis</h4>
+					test/cache <a href="test/cache">click</a>
 					<h4>Exit Application</h4>
 					test/exit <a href="test/exit">click</a>
                 </div>

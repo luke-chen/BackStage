@@ -108,7 +108,7 @@ public class FooController {
 	/* 302 Download */
 	@RequestMapping(value = "/download302", method = RequestMethod.GET)
 	public String downloadBy302() {
-		return "redirect:/test/fruit";
+		return "redirect:http://www.baidu.com";
 	}
 
 	/* Download CSV */
@@ -167,5 +167,10 @@ public class FooController {
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 	public void testTransaction() {
 		fooService.getTranscation();
+	}
+	
+	@RequestMapping(value = "/cache", method = RequestMethod.GET)
+	public void testCache() {
+		fooService.testCache("my parameter 1");
 	}
 }

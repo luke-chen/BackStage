@@ -15,8 +15,8 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Service
-public class RedisService {
-	private static final Logger logger = LoggerFactory.getLogger(RedisService.class);
+public class RedisTestService {
+	private static final Logger logger = LoggerFactory.getLogger(RedisTestService.class);
 	
 	@Autowired
 	@Qualifier("myJedisPool")
@@ -27,13 +27,13 @@ public class RedisService {
 		// test redis connection
 		try {
 			Jedis test = jedisPool.getResource();
-			test = jedisPool.getResource();
 			test.set("foo", "test foo");
-			if(test.get("foo").equals("test foo")) {
-				test.del("foo");
+			if(test.get("foo").equals("test foo") && test.del("foo") == 1) {
 				logger.info("test redis: pass!");
 				jedisPool.returnResource(test);
-				return;
+			}
+			else {
+				logger.info("test redis: failed!");
 			}
 		} catch(Exception e) {
 			logger.error("test redis: failed", e);
@@ -44,6 +44,17 @@ public class RedisService {
 	public void freeJedisPoll() {
 		if(jedisPool != null)
 			jedisPool.destroy();
+	}
+	
+	public void set(String key, String value) {
+		Jedis redis = jedisPool.getResource();
+		try {
+			redis.set(key, value);
+		} catch(Exception e) {
+			logger.error("set redis error", e);
+		} finally {
+			jedisPool.returnResource(redis);
+		}
 	}
 	
 	public static void main(String[] str) {

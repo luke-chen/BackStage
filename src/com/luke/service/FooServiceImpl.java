@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redis.clients.jedis.Jedis;
+
+import com.luke.annotation.Cache;
 import com.luke.model.FooBean;
 import com.luke.model.user.User;
 import com.luke.persistence.mapper.UserMapper;
@@ -12,7 +15,7 @@ import com.luke.persistence.mapper.UserMapper;
 @Service
 public class FooServiceImpl {
 	@Autowired
-    private UserMapper userMapper;
+	private UserMapper userMapper;
 	
 	/**
 	 * Convert Object to String formatted as CSV
@@ -33,5 +36,14 @@ public class FooServiceImpl {
     
     public void getTranscation() {
     	userMapper.updatePasswordByName(new User("jack", "11222"));
+    }
+    
+    @Cache
+    public void testCache(String str, Jedis... jedis) {
+    	System.out.println(str);
+		jedis[0].set("foo", "test foo");
+		System.out.println("get 'foo' from redis :"+jedis[0].get("foo"));
+		jedis[0].del("foo");
+		System.out.println("delete 'foo' from redis :"+jedis[0].get("foo"));
     }
 }
