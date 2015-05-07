@@ -30,23 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<!-- base需要放到head中 -->
 	<base href="<%=basePath%>">
-
-    <!-- The styles -->
-    <link id="bs-css" href="ui/charisma/css/bootstrap-cerulean.min.css" rel="stylesheet">
-    <link href="ui/charisma/css/charisma-app.css" rel="stylesheet">
-    <link href='ui/charisma/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
-    <link href='ui/charisma/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
-    <link href='ui/charisma/bower_components/chosen/chosen.min.css' rel='stylesheet'>
-    <link href='ui/charisma/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
-    <link href='ui/charisma/bower_components/responsive-tables/responsive-tables.css' rel='stylesheet'>
-    <link href='ui/charisma/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
-    <link href='ui/charisma/css/jquery.noty.css' rel='stylesheet'>
-    <link href='ui/charisma/css/noty_theme_default.css' rel='stylesheet'>
-    <link href='ui/charisma/css/elfinder.min.css' rel='stylesheet'>
-    <link href='ui/charisma/css/elfinder.theme.css' rel='stylesheet'>
-    <link href='ui/charisma/css/jquery.iphone.toggle.css' rel='stylesheet'>
-    <link href='ui/charisma/css/uploadify.css' rel='stylesheet'>
-    <link href='ui/charisma/css/animate.min.css' rel='stylesheet'>
+	
+	<!-- include charimas css -->
+	<jsp:include page="../common/css.html" />
 
     <!-- jQuery -->
     <script src="ui/charisma/bower_components/jquery/jquery.min.js"></script>
@@ -62,15 +48,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-    <!-- topbar starts -->
+    <!-- include topbar -->
     <jsp:include page="../common/topbar.html" />
-    <!-- topbar ends -->
 <div class="ch-container">
     <div class="row">
         
-        <!-- left menu starts -->
+        <!-- include left menu -->
 		<jsp:include page="../common/leftmenu.html" />
-        <!-- left menu ends -->
 
         <noscript>
             <div class="alert alert-block col-md-12">
@@ -162,39 +146,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div><!--/fluid-row-->
 
 <hr>
-<!-- footer starts -->
+<!-- include footer -->
 <jsp:include page="../common/footer.html"/>
-<!-- footer ends -->
 
 </div><!--/.fluid-container-->
-<!-- external javascript -->
-<script src="ui/charisma/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- library for cookie management -->
-<script src="ui/charisma/js/jquery.cookie.js"></script>
-<!-- calender plugin -->
-<script src='ui/charisma/bower_components/moment/min/moment.min.js'></script>
-<script src='ui/charisma/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
-<!-- data table plugin -->
-<script src='ui/charisma/js/jquery.dataTables.min.js'></script>
-<!-- select or dropdown enhancer -->
-<script src="ui/charisma/bower_components/chosen/chosen.jquery.min.js"></script>
-<!-- plugin for gallery image view -->
-<script src="ui/charisma/bower_components/colorbox/jquery.colorbox-min.js"></script>
-<!-- notification plugin -->
-<script src="ui/charisma/js/jquery.noty.js"></script>
-<!-- library for making tables responsive -->
-<script src="ui/charisma/bower_components/responsive-tables/responsive-tables.js"></script>
-<!-- tour plugin -->
-<script src="ui/charisma/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
-<!-- star rating plugin -->
-<script src="ui/charisma/js/jquery.raty.min.js"></script>
-<!-- for iOS style toggle switch -->
-<script src="ui/charisma/js/jquery.iphone.toggle.js"></script>
-<!-- autogrowing textarea plugin -->
-<script src="ui/charisma/js/jquery.autogrow-textarea.js"></script>
-<!-- multiple file upload plugin -->
-<script src="ui/charisma/js/jquery.uploadify-3.1.min.js"></script>
-<!-- history.js for cross-browser state change on ajax -->
-<script src="ui/charisma/js/jquery.history.js"></script>
+
+<!-- include js -->
+<jsp:include page="../common/js.html"/>
+
 </body>
 </html>
