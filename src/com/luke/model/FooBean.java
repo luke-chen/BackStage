@@ -1,20 +1,26 @@
 package com.luke.model;
 
-public class FooBean {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private final long id;
+@XmlRootElement
+public class FooBean {
+	private final long id;
     private String content;
 
     public FooBean(long id, String content) {
         this.id = id;
         this.content = content;
     }
-
+    
     public long getId() {
-        return id;
-    }
-
+		return id;
+	}
+    
     public String getContent() {
-        return content;
-    }
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 }

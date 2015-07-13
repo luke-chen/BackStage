@@ -20,4 +20,5 @@
         <property name="prefix" value="/WEB-INF/views/"/> <!--最好以"/"结尾，针对返回值为void类型有用 -->
         <property name="suffix" value=".jsp"/>
     </bean>
+
 </beans>

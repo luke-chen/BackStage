@@ -17,14 +17,17 @@
 	    <c:if test="${param.logout != null}">
 	        <p>You have been logged out.</p>
 	    </c:if>
-	    <p>
+	    <div>
 	        <label for="username">Username</label>
-	        <input type="text" id="username" name="username"/>
-	    </p>
-	    <p>
+	        <input type="text" id="username" name="username" />
+	    </div>
+	    <div>
 	        <label for="password">Password</label>
-	        <input type="password" id="password" name="password"/>
-	    </p>
+	        <input type="password" id="password" name="password" />
+	    </div>
+	    <div>
+	    	Remember Me: <input type="checkbox" name="remember-me" />
+	    </div>
 	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	    <button type="submit" class="btn">Log in</button>
 	</form>

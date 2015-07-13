@@ -8,7 +8,7 @@
 <center>
 <b>
 <h2>404 Not Found<br>
-<div id="clock">go back homepage 5 seconds later</div>
+<div id="count">Go back to homepage in 5 seconds later</div>
 </h2>
 </b>
 </center>
@@ -17,11 +17,11 @@ var n = 5;
 function gohome() {
     n--;
     if(n >= 0) {
-        $('clock').innerText= "go back homepage "+n+" seconds later";
+        document.getElementById('count').innerText= "Go back to homepage in "+n+" seconds later";
         //document.getElementById("clock").innerText= "go back homepage "+n+" seconds later";
     }
     else {
-        window.location.href="http://"+window.location.host+"/SSI/";	
+        window.location.href="http://"+window.location.host+"/Backstage/";
     }
 }
 setInterval("gohome()", 1000);

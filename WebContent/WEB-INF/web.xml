@@ -13,7 +13,22 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/applicationContext.xml</param-value>
   </context-param>
-
+  
+  <!-- 字符过滤器 -->  
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+ 
+  <!-- Security Filter -->
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -54,6 +69,11 @@
   </listener>
 
   <session-config>
-    <session-timeout>10</session-timeout>
+    <session-timeout>5</session-timeout>
   </session-config>
+  
+  <error-page> 
+  	<error-code>404</error-code> 
+  	<location>/404.html</location> 
+  </error-page>
 </web-app>

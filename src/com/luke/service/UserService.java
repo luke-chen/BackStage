@@ -4,20 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.luke.model.status.ActionStatus;
-import com.luke.model.status.FailedActionStatus;
-import com.luke.model.status.SuccessfulActionStatus;
+import com.luke.model.rspnstatus.ResponseStatus;
+import com.luke.model.rspnstatus.Failed;
+import com.luke.model.rspnstatus.Success;
 import com.luke.model.user.Authority;
 import com.luke.model.user.User;
+import com.luke.model.user.UserInfo;
 import com.luke.persistence.mapper.UserMapper;
 
 @Service
 public class UserService {
+	
+	private Md5PasswordEncoder md5Encoder = new Md5PasswordEncoder();
+	
     public static HashMap<String, Integer> ROLE_AUTH = new HashMap<String, Integer>();
     static {
         // admin authority
@@ -29,15 +31,15 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public User getUser(String username) {
+    public UserInfo getUser(String username) {
         return userMapper.getUser(username);
     }
 
-    public List<User> getAllUsers() {
+    public List<UserInfo> getAllUsers() {
         return userMapper.getAll();
     }
     
-    public List<User> getUsersByRoleUser() {
+    public List<UserInfo> getUsersByRoleUser() {
         return userMapper.getUsersByRoleUser();
     }
 
@@ -45,7 +47,10 @@ public class UserService {
         userMapper.addUser(user);
     }
     
-    public int updatePasswordByName(User user) {
+    public int updatePasswordByName(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(md5Encoder.encodePassword(password, null));
         return userMapper.updatePasswordByName(user);
     }
 
@@ -61,32 +66,51 @@ public class UserService {
         return userMapper.removeAuthority(username);
     }
     
-    public ActionStatus addUserAndAuthority(User user, String authority) {
-        if(!ROLE_AUTH.containsKey(authority))
-            return new FailedActionStatus("该权限不存在");
+    public ResponseStatus addUserAndAuthority(String username, String password, String authority) {
+        if(!checkUserInfo(username, password))
+        	return new Failed("用户名或密码不合法");
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(md5Encoder.encodePassword(password, null));
         addUser(user);
         Authority auth = new Authority();
         auth.setUsername(user.getUsername());
         auth.setAuthority(authority);
-        addAuthority(auth);
-        return new SuccessfulActionStatus();
-    }
-    
-    public ActionStatus deleteUserAndAuthority(String username) {
-        return removeAuthority(username) > 0 && removeUser(username) > 0 ? new SuccessfulActionStatus()
-                : new FailedActionStatus("该用户不存在");
-    }
-    
-    public ActionStatus updateUserAndAuthorityByName(User user, String authority) {
         if(!ROLE_AUTH.containsKey(authority))
-            return new FailedActionStatus("该权限不存在");
-        if(updatePasswordByName(user) <= 0)
-            return new FailedActionStatus("该用户不存在");
+            return new Failed("该权限不存在");
+        addAuthority(auth);
+        return new Success();
+    }
+    
+    public ResponseStatus deleteUserAndAuthority(String username) {
+        return removeAuthority(username) > 0 && removeUser(username) > 0 ? new Success()
+                : new Failed("该用户不存在");
+    }
+    
+    public ResponseStatus updateUserAndAuthorityByName(String username, String password, String authority) {
+    	if(!ROLE_AUTH.containsKey(authority))
+            return new Failed("该权限不存在");
+    	if(updatePasswordByName(username, password) <= 0)
+            return new Failed("该用户不存在");
+    	User user = new User();
+		user.setUsername(username);
+		user.setPassword(md5Encoder.encodePassword(password, null));;
         removeAuthority(user.getUsername());
         Authority auth = new Authority();
         auth.setUsername(user.getUsername());
         auth.setAuthority(authority);
         addAuthority(auth);
-        return new SuccessfulActionStatus();
+        return new Success();
+    }
+    
+    /**
+     * Check that user's name and password are valid
+     * @param username
+     * @param password
+     * @return True if it is valid, else False.
+     */
+    private boolean checkUserInfo(String username, String password) {
+		return !(username == null || username.isEmpty()
+				|| password == null || password.isEmpty() || password.length() != 6);
     }
 }

@@ -6,11 +6,15 @@ USE `backstage`;
 --
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
+  `id` integer AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
-  PRIMARY KEY (`username`)
+  `create_date` timestamp DEFAULT NOW(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create unique index ix_username on users (username);
 
 --
 -- Table structure for table `authorities`
@@ -21,15 +25,16 @@ DROP TABLE IF EXISTS `authorities`;
 CREATE TABLE `authorities` (
   `username` varchar(50) NOT NULL,
   `authority` varchar(50) NOT NULL,
-  UNIQUE KEY `ix_auth_username` (`username`,`authority`),
   CONSTRAINT `fk_authorities_users` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ 
+create unique index ix_auth_username on authorities (username,authority);
 
 --
 -- Dumping data for table `users`
 --
 LOCK TABLES `users` WRITE;
-INSERT INTO `users` VALUES ('admin','96e79218965eb72c92a549dd5a330112',1),('user1','96e79218965eb72c92a549dd5a330112',1);
+INSERT INTO `users` (username, password, enabled) VALUES ('admin','96e79218965eb72c92a549dd5a330112',1),('user1','96e79218965eb72c92a549dd5a330112',1);
 UNLOCK TABLES;
 
 --

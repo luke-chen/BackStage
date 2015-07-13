@@ -6,7 +6,7 @@
 			<pattern>[%d{HH:mm:ss.SSS}]-[%level]-[%thread]-[%logger{36}]-[%file:%line]-[%msg]%n</pattern>
 		</encoder>
 	</appender>
-	
+
 	<!-- Rotate log file by date -->
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -21,24 +21,17 @@
     </appender>
     
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
-    	<queueSize>256</queueSize>
+    	<queueSize>1024</queueSize>
     	<appender-ref ref="FILE" />
   	</appender>
 
     <!-- 为package指定日志级别 
 	<logger name="com.luke.controller" level="INFO" />
 	-->
-  	
+
   	<!-- 全局日志级别 --> 
-	<root level="DEBUG">
+	<root level="TRACE">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="ASYNC" />
 	</root>
-	
-
-	<!-- 测试的时候可以打印全部级别信息 
-	<root level="TRACE" >
-		<appender-ref ref="STDOUT" />
-	</root>
-	-->
 </configuration>

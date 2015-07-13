@@ -17,19 +17,19 @@ public class CacheAspect {
 	private JedisPool jedisPool;
 
 	@Around("@annotation(com.luke.annotation.Cache)")
-	public void accessRedis(ProceedingJoinPoint pjp) {
+	public void redisAccess(ProceedingJoinPoint pjp) {
 		System.out.println("before:"+jedisPool.getNumActive());
 		Jedis cache = null;
-		Object[] objs = pjp.getArgs();
+		Object[] args = pjp.getArgs();
 		try {
-			for(int i=objs.length-1; i>=0; i--) {
-				if(objs[i] instanceof Jedis[]) {
+			for(int i=args.length-1; i>=0; i--) {
+				if(args[i] instanceof Jedis[]) {
 					cache = jedisPool.getResource();
-					objs[i] = new Jedis[]{cache};
+					args[i] = new Jedis[]{cache};
 					break;
 				}
 			}
-			pjp.proceed(objs);
+			pjp.proceed(args);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} catch (Throwable e) {
