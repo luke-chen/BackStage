@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div class="navbar navbar-default" role="navigation">
     <div class="navbar-inner">
@@ -24,7 +23,7 @@
                 <li><a href="#">Profile</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="test/logout">Logout</a>
+                <li><a href="logout">Logout</a>
                 </li>
             </ul>
         </div>

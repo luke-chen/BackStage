@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<base href="<%=basePath%>">
 
 	<!-- include charimas css -->
-	<jsp:include page="../common/css.html" />
+	<%@ include file="../common/css.html"%>
 
 	<!-- jQuery -->
 	<script src="ui/charisma/bower_components/jquery/jquery.min.js"></script>
@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="ch-container">
 <div class="row">
 <!-- include left menu -->
-<jsp:include page="../common/leftmenu.html" />
+<jsp:include page="../common/leftmenu.jsp" />
 <noscript>
 	<div class="alert alert-block col-md-12">
 		<h4 class="alert-heading">Warning!</h4>
@@ -300,9 +300,9 @@ function post(url, data, success, error) {
 <hr>
 
 <!-- include footer -->
-<jsp:include page="../common/footer.html"/>
+<%@ include file="../common/footer.html"%>
 
 <!-- include js -->
-<jsp:include page="../common/js.html"/>
+<%@ include file="../common/js.html"%>
 </body>
 </html>
