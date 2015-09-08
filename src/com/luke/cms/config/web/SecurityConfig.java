@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@ComponentScan("com.luke.cms.config.web")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static Md5PasswordEncoder md5Encoder = new Md5PasswordEncoder();

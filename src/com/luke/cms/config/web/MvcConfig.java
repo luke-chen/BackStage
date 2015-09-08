@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
  
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.luke.cms.controller", "com.luke.cms.model", "com.luke.cms.service", "com.luke.cms.config.app"})
+@ComponentScan(basePackages = {"com.luke.cms.controller", "com.luke.cms.model", "com.luke.cms.service"})
 @MapperScan("com.luke.cms.persistence.mapper")
 public class MvcConfig extends WebMvcConfigurerAdapter {
  

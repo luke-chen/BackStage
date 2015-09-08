@@ -23,7 +23,7 @@
                 <li><a href="#">Profile</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="logout">Logout</a>
+                <li><a href="test/mylogout">Logout</a>
                 </li>
             </ul>
         </div>

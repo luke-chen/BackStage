@@ -22,7 +22,6 @@ import redis.clients.jedis.JedisSentinelPool;
  * @author luke
  */
 @Configuration
-@PropertySource("/WEB-INF/backstage.properties")
 public class CacheConfig {
     private static final Logger logger = LoggerFactory.getLogger(CacheConfig.class);
     
@@ -40,7 +39,7 @@ public class CacheConfig {
 
     @Bean(name = "myJedisPool")
     public JedisPool jedisPool() {
-        logger.info("connect redis url: "+redisHost+":"+redisPort);
+        logger.info("Connect redis url: "+redisHost+":"+redisPort);
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxWaitMillis(60000);
         config.setMaxTotal(100);
@@ -65,9 +64,4 @@ public class CacheConfig {
 //        sentinels.addAll(CollectionUtils.arrayToList(sentinelHosts.split(",")));
 //        return new JedisSentinelPool(masterName, sentinels, config);
 //    }
-    
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
 }

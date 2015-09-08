@@ -1,4 +1,4 @@
-package com.luke.cms.config.web;
+package com.luke.cms.config.app;
 
 import javax.sql.DataSource;
 
@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("/WEB-INF/backstage.properties")
 public class DatabaseConfig {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseConfig.class);
 
@@ -36,7 +35,7 @@ public class DatabaseConfig {
 
     @Bean
     public DataSource dataSource() {
-        logger.info("connect mysql url: "+dbUrl);
+        logger.info("Connect mysql url: "+dbUrl);
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(jdbcDriver);
         dataSource.setUrl(dbUrl);
@@ -55,10 +54,5 @@ public class DatabaseConfig {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         return sessionFactory.getObject();
-    }
-    
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
-        return new PropertySourcesPlaceholderConfigurer();
     }
 }

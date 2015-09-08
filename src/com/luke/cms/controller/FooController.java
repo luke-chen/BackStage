@@ -268,12 +268,12 @@ public class FooController {
 		return "test cache finished";
 	}
 	
-//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-//	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		if(request.authenticate(response))
-//			request.logout();
-//		response.sendRedirect(request.getContextPath());
-//	}
+	@RequestMapping(value = "/mylogout", method = RequestMethod.GET)
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.authenticate(response))
+			request.logout();
+		response.sendRedirect(request.getContextPath());
+	}
 	
 	@RequestMapping("/log")
 	@ResponseBody
