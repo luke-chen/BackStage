@@ -8,7 +8,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.luke.cms.model.rspnstatus.Failed;
-import com.luke.cms.model.rspnstatus.ResponseStatus;
+import com.luke.cms.model.rspnstatus.Result;
 import com.luke.cms.model.rspnstatus.Success;
 import com.luke.cms.model.user.Authority;
 import com.luke.cms.model.user.User;
@@ -66,7 +66,7 @@ public class UserService {
         return userMapper.removeAuthority(username);
     }
     
-    public ResponseStatus addUserAndAuthority(String username, String password, String authority) {
+    public Result addUserAndAuthority(String username, String password, String authority) {
         if(!checkUserInfo(username, password))
         	return new Failed("用户名或密码不合法");
         User user = new User();
@@ -82,12 +82,12 @@ public class UserService {
         return new Success();
     }
     
-    public ResponseStatus deleteUserAndAuthority(String username) {
+    public Result deleteUserAndAuthority(String username) {
         return removeAuthority(username) > 0 && removeUser(username) > 0 ? new Success()
                 : new Failed("该用户不存在");
     }
     
-    public ResponseStatus updateUserAndAuthorityByName(String username, String password, String authority) {
+    public Result updateUserAndAuthorityByName(String username, String password, String authority) {
     	if(!ROLE_AUTH.containsKey(authority))
             return new Failed("该权限不存在");
     	if(updatePasswordByName(username, password) <= 0)

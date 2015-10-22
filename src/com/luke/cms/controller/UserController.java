@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.luke.cms.model.rspnstatus.Failed;
-import com.luke.cms.model.rspnstatus.ResponseStatus;
+import com.luke.cms.model.rspnstatus.Result;
 import com.luke.cms.model.rspnstatus.Success;
 import com.luke.cms.model.user.UserInfo;
 import com.luke.cms.service.UserService;
@@ -68,7 +68,7 @@ public class UserController {
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseStatus addUser(
+	public Result addUser(
 			@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "authority", required = true) String authority) {
@@ -85,7 +85,7 @@ public class UserController {
     @RequestMapping(value = "/user/delete", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseStatus deleteUser(@RequestParam(value = "username", required = true) String username) {
+    public Result deleteUser(@RequestParam(value = "username", required = true) String username) {
     	try {
             username = username.trim();
 	    	return userService.deleteUserAndAuthority(username);
@@ -96,7 +96,7 @@ public class UserController {
     
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseStatus updateUser(
+    public Result updateUser(
     		@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "authority", required = true) String authority) {
@@ -112,7 +112,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseStatus changePassword(
+    public Result changePassword(
             @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "password", required = true) String password) {
         username = username.trim();
@@ -143,7 +143,7 @@ public class UserController {
     /* Spring Security */
     @RequestMapping(value = "/user/whoami")
     @ResponseBody
-    public ResponseStatus whoAmI() {
+    public Result whoAmI() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<GrantedAuthority> authority = (Collection<GrantedAuthority>)authentication.getAuthorities();
         for(GrantedAuthority g : authority)

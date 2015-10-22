@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,6 +17,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -38,13 +39,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // login configuration
         http.csrf().and().formLogin().loginPage("/login.jsp").and().formLogin().loginProcessingUrl("/login").and()
                 .formLogin().defaultSuccessUrl("/home").and().formLogin().failureUrl("/?error=1");
-
+        
         // logout configuration
         http.logout().logoutUrl("/logout").and().logout().logoutSuccessUrl("/").and().logout()
                 .deleteCookies("JSESSIONID").and().logout().addLogoutHandler(new CmsLogoutHandler());
         
         // remember me
         http.rememberMe().tokenValiditySeconds(1209600).and().rememberMe().rememberMeParameter("remember-me");
+        
+        // utf-8 encode filter 必须是第一个执行的过滤器
+        CharacterEncodingFilter encodeFilter = new CharacterEncodingFilter();
+        encodeFilter.setEncoding("utf-8");
+        encodeFilter.setForceEncoding(true);
+        http.addFilterBefore(encodeFilter, CsrfFilter.class); //放在csrf filter前面
     }
 
     class CmsLogoutHandler implements LogoutHandler {

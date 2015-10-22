@@ -1,6 +1,6 @@
 package com.luke.cms.model.rspnstatus;
 
-public class Success extends ResponseStatus {
+public class Success extends Result {
 	public Success() {
 		super(1, null, null);
 	}

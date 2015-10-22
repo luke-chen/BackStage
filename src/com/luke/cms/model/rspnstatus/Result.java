@@ -6,14 +6,14 @@ package com.luke.cms.model.rspnstatus;
  * 
  * @author luke
  */
-public class ResponseStatus {
+public class Result {
 	private int status;
 	private String info;
 	private Object data;
 	
-	public ResponseStatus() {}
+	public Result() {}
 	
-	public ResponseStatus(int status, String info, Object data) {
+	public Result(int status, String info, Object data) {
 		this.status = status;
 		this.info = info;
 		this.data = data;

@@ -37,7 +37,7 @@ import com.luke.cms.model.StudentList;
 import com.luke.cms.model.fruit.Apple;
 import com.luke.cms.model.fruit.Fruit;
 import com.luke.cms.model.rspnstatus.Failed;
-import com.luke.cms.model.rspnstatus.ResponseStatus;
+import com.luke.cms.model.rspnstatus.Result;
 import com.luke.cms.model.rspnstatus.Success;
 import com.luke.cms.service.FooServiceImpl;
 
@@ -136,7 +136,7 @@ public class FooController {
 	
 	@RequestMapping(value = "/json/post_json", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseStatus handleJsonRequest(HttpServletRequest request, HttpServletResponse response) {
+	public Result handleJsonRequest(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			// Read json string from request.inputStream
 			String inputJson = "";
@@ -159,9 +159,8 @@ public class FooController {
 	@ResponseBody
 	public HashMap<String, String> fromPost(@RequestParam(value = "username", required = true) String username,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    System.out.println(request.getCharacterEncoding());
 		System.out.println(username);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		System.out.println(reader.readLine());
 		HashMap<String, String> result = new HashMap<String, String>();
 		result.put("you post username is", username);
 		return result;

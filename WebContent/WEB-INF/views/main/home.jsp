@@ -101,14 +101,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li>test/jsp/grape (RESTFUL) <a href="test/jsp/grape">click</a></<li>
 						<li>test/json/fruit/grape/chinese/葡萄 (RESTFUL) <a href="test/json/fruit/grape/chinese/葡萄">click</a></<li>
 						<li>test/json?name=kiki&chinese_name=陈 (JSON) <a href="test/json?name=kiki&chinese_name=陈">click</a></li>
-						<li>test/json/post_json (Ajax Post Chinese ) <a href="#" id="postJson">click</a></li>
 						<li>test/json/form_post ( Form Post )
-						<form class="form-horizontal" action="test/json/form_post" method="post">
-							<input name="username" type="text" class="form-control" placeholder="Username">
-							<button name="submit" type="submit" class="btn btn-primary" value="submit">Submit</button>
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-						</form>
-						</li>
+                        <form class="form-horizontal" action="test/json/form_post" method="post">
+                            <input name="username" type="text" class="form-control" placeholder="Username" value="测试内容">
+                            <button name="submit" type="submit" class="btn btn-primary" value="submit">Submit</button>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                        </li>
+						<li>test/json/post_json (Ajax Post Chinese ) <a href="#" id="postJson">click</a></li>
 					</ul>
 					<h4>User Authority</h4>
 					<h5>必须是认证用户才能访问User接口</h5>
@@ -165,12 +165,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 <script type="text/javascript">
 $('#postJson').click(function() {
-	post('test/json/post_json', '{"id":25, "name":"中文名"}',
+	var name = $('[name=username]').val()
+	post('test/json/post_json', '{"id":25, "name": "'+name+'"}',
 	function (data) {
 		if(data['status'])
-			alert('数据处理成功');
+			alert('数据处理成功:'+data['data'].name);
 		else
-			alert('数据处理失败');
+			alert('数据处理失败:'+data['data']);
 	},
 	function () {
 		alert('请求失败，请检查网络环境');
