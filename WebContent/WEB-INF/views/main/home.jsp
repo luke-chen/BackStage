@@ -164,6 +164,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 <script type="text/javascript">
+// 默认选择ajax请求
+$(document).ready(function() {
+	$("#is-ajax").attr("checked", true)
+});
+
 $('#postJson').click(function() {
 	var name = $('[name=username]').val()
 	post('test/json/post_json', '{"id":25, "name": "'+name+'"}',

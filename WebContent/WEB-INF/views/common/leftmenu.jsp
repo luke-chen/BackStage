@@ -36,7 +36,8 @@
 				<li><a href="http://usman.it/themes/charisma/error.html"><i class="glyphicon glyphicon-ban-circle"></i><span> Error Page</span></a></li>
 				<li><a href="http://usman.it/themes/charisma/login.html"><i class="glyphicon glyphicon-lock"></i><span> Login Page</span></a></li>
 			</ul>
-			<label id="for-is-ajax" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
+			<!-- hidden this checkbox if you need -->
+			<label id="for-is-ajax" for="is-ajax" style="display: normal;"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
         </div>
     </div>
 </div>
