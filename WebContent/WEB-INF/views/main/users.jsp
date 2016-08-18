@@ -8,86 +8,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-	<!--
-		===
-		This comment should NOT be removed.
-
-		Charisma v2.0.0
-
-		Copyright 2012-2014 Muhammad Usman
-		Licensed under the Apache License v2.0
-		http://www.apache.org/licenses/LICENSE-2.0
-
-		http://usman.it
-		http://twitter.com/halalit_usman
-		===
-	-->
 	<meta charset="utf-8">
-	<title>Luke's Backstage Admin Template</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
-	<meta name="author" content="Muhammad Usman">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 2 | Dashboard</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- default header name is X-CSRF-TOKEN -->
-	<meta name="_csrf" content="${_csrf.token}"/>
-	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+	<meta name="_csrf" content="${_csrf.token}" />
+	<meta name="_csrf_header" content="${_csrf.headerName}" />
 
 	<!-- The base path of href -->
 	<base href="<%=basePath%>">
 
 	<!-- include charimas css -->
 	<%@ include file="../common/css.html"%>
-
-	<!-- jQuery -->
-	<script src="ui/charisma/bower_components/jquery/jquery.min.js"></script>
-
-	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
-	<!-- The fav icon -->
+	
 	<link rel="shortcut icon" href="ui/charisma/img/favicon.ico">
 </head>
 
-<body>
-<!-- include topbar -->
-<jsp:include page="../common/topbar.jsp" />
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<!-- include topbar -->
+		<jsp:include page="../common/topbar.jsp" />
 
-<div class="ch-container">
-<div class="row">
-<!-- include left menu -->
-<jsp:include page="../common/leftmenu.jsp" />
-<noscript>
-	<div class="alert alert-block col-md-12">
-		<h4 class="alert-heading">Warning!</h4>
-		<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>enabled to use this site.
-		</p>
-	</div>
-</noscript>
+		<!-- include left menu -->
+		<jsp:include page="../common/leftmenu.jsp" />
 
-<!-- content start -->
-<div id="content" class="col-lg-10 col-sm-10">
-<div>
-	<ul class="breadcrumb">
-		<li><a href="#">后台管理</a></li>
-		<li><a href="#">用户管理</a></li>
-	</ul>
-</div>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					Backstage Framework Dashboard <small>AdminLTE 2 + SpringMVC
+						+ SpringSecurity + MyBatis + LogBack</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> 用户管理</a></li>
+					<li class="active">后台管理</li>
+				</ol>
+			</section>
 
-<div class="row">
-<div class="box col-md-12">
-
-<div class="box-inner">
-	<div class="box-header well" data-original-title="">
-		<h2><i class="glyphicon glyphicon-user"></i> 用户列表</h2>
-	</div>
-	<div class="box-content">
-		<table class="table table-hover">
-		<thead>
-			<div class="alert alert-info">需要添加新用户点击: <a href="#" data-toggle="modal" data-target="#newUser">新增用户</a>
-			</div>
-			<tr>
-				<th>用户名</th>
+			<!-- Main content -->
+			<section class="content">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">用户列表</h3>
+              <div><small>需要添加新用户点击: <a href="#" data-toggle="modal" data-target="#newUser">新增用户</a></small></div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="user" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>用户名</th>
 				<th>用户权限</th>
 				<th>创建时间</th>
 				<th>更新密码</th>
@@ -96,7 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</sec:authorize>
 			</tr>
 		</thead>
-
 		<tbody>
 			<c:forEach items="${users}" var="user">
 			<tr>
@@ -140,13 +112,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tbody>
 		</table>
 	</div>
-</div>
-</div><!-- box col-md-12 end -->
-</div><!-- row end -->
+	</div>
+
 
 <!-- 新建用户 -->
-<div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade" id="newUser" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -183,8 +154,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 <!-- 修改密码 -->
-<div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade" id="changePwd" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -212,8 +183,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 <!-- 删除用户 -->
-<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -227,7 +198,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 
+		</section>
+	</div> <!-- End of Main content  -->
+	<!-- include footer -->
+	<%@ include file="../common/footer.html"%>
+</div> <!-- End of  Content Wrappe  -->
+
+<!-- include js -->
+<%@ include file="../common/js.html"%>
 <script type="text/javascript">
+$(document).ready(function(){
+	$('#user').DataTable({
+	    "paging": true,
+	    "lengthChange": true,
+	    "searching": false,
+	    "ordering": true,
+	    "info": true,
+	    "autoWidth": false
+  	});
+});
+
 var selectedUsername = '';
 
 function selectUser(username) {
@@ -292,17 +282,5 @@ function post(url, data, success, error) {
 	});
 }
 </script>
-
-</div><!-- content end -->
-</div><!-- row end -->
-</div><!-- ch-container end -->
-
-<hr>
-
-<!-- include footer -->
-<%@ include file="../common/footer.html"%>
-
-<!-- include js -->
-<%@ include file="../common/js.html"%>
 </body>
 </html>

@@ -68,7 +68,7 @@ public class UserService {
     
     public Result addUserAndAuthority(String username, String password, String authority) {
         if(!checkUserInfo(username, password))
-        	return new Failed("用户名或密码不合法");
+        	return new Failed("用户名或密码不合法,密码为6-12位");
         User user = new User();
         user.setUsername(username);
         user.setPassword(md5Encoder.encodePassword(password, null));
@@ -111,6 +111,6 @@ public class UserService {
      */
     private boolean checkUserInfo(String username, String password) {
 		return !(username == null || username.isEmpty()
-				|| password == null || password.isEmpty() || password.length() != 6);
+				|| password == null || password.isEmpty() || password.length() < 6 && password.length() > 12);
     }
 }
