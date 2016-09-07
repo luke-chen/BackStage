@@ -8,12 +8,13 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import com.luke.cms.config.app.AspectJConfig;
 import com.luke.cms.config.app.CacheConfig;
 import com.luke.cms.config.app.DatabaseConfig;
+import com.luke.cms.config.app.FileUploadConfig;
 import com.luke.cms.config.app.PropertyConfig;
 
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { PropertyConfig.class, DatabaseConfig.class, CacheConfig.class, SecurityConfig.class };
+        return new Class[] { PropertyConfig.class, DatabaseConfig.class, CacheConfig.class, SecurityConfig.class, FileUploadConfig.class };
     }
 
     @Override

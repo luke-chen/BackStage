@@ -102,18 +102,20 @@
 											<li>test/json?name=kiki&chinese_name=陈 (JSON) <a
 												href="test/json?name=kiki&chinese_name=陈">click</a></li>
 											<li>test/json/form_post ( Form Post )
-												<form class="form-horizontal" action="test/json/form_post"
-													method="post">
-													<input name="username" type="text" class="form-control"
-														placeholder="Username" value="测试内容">
-													<button name="submit" type="submit" class="btn btn-primary"
-														value="submit">Submit</button>
-													<input type="hidden" name="${_csrf.parameterName}"
-														value="${_csrf.token}" />
+												<form class="form-horizontal" action="test/json/form_post" method="post">
+													<input name="username" type="text" class="form-control" placeholder="Username" value="测试内容">
+													<button name="submit" type="submit" class="btn btn-primary" value="submit">Submit</button>
+													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												</form>
 											</li>
-											<li>test/json/post_json (Ajax Post Chinese ) <a href="#"
-												id="postJson">click</a></li>
+											<li>test/fileupload (Please upload a file)
+											    <form method="post" action="test/fileupload?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+            										<input type="text" name="name" class="form-control" placeholder="保存到服务器上得文件名"/>
+            										<input name="file" type="file"/>
+            										<button name="submit" type="submit" class="btn btn-primary" value="submit">Upload</button>
+        										</form>
+											</li>
+											<li>test/json/post_json (Ajax Post Chinese ) <a href="#" id="postJson">click</a></li>
 										</ul>
 										<h4>User Authority</h4>
 										<h5>必须是认证用户才能访问User接口</h5>
@@ -185,16 +187,16 @@
 		$('#postJson').click(
 				function() {
 					var name = $('[name=username]').val()
-					post('test/json/post_json', '{"id":25, "name": "' + name
-							+ '"}', function(data) {
-						if (data['status'])
-							alert('数据处理成功:' + data['data'].name);
-						else
-							alert('数据处理失败:' + data['data']);
-					}, function() {
-						alert('请求失败，请检查网络环境');
+					post('test/json/post_json', '{"id":25, "name": "' + name + '"}',
+						function(data) {
+							if (data['status'])
+								alert('数据处理成功:' + data['data'].name);
+							else
+								alert('数据处理失败:' + data['data']);
+						}, function() {
+							alert('请求失败，请检查网络环境');
 					});
-				});
+		});
 		function post(url, data, success, error) {
 			var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 			var csrfToken = $("meta[name='_csrf']").attr("content");
